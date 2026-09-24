@@ -1,0 +1,600 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Maria Personal Training</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500..700;1,500..600&family=Manrope:wght@400;500;600;700&family=Onest:wght@500&display=swap">
+<style>
+:root{
+  color-scheme:light;
+  --bg:#ECEBF0; --surface:#FFFFFF; --ink:#2B1557; --muted:#4E4468; --line:#D9D5E5;
+  --accent:#7B3FF2; --accent-ink:#FFFFFF; --mint:#E7DDFF; --mint-ink:#4A1DA6; --warn:#8A5200; --warn-bg:#FFF1D6;
+  --white:#FFFFFF;
+  --display:"Playfair Display", Georgia, "Times New Roman", serif;
+  --body:"Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"Manrope", system-ui, sans-serif;
+  --r:14px;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;padding-inline:clamp(16px,4vw,48px);overflow-x:hidden;position:relative;isolation:isolate}
+
+/* animated background: drifting purple glows + slow grid */
+.bgfx{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.bgfx::before{content:"";position:absolute;inset:-40px;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:56px 56px;opacity:.55;animation:grid 24s linear infinite;mask-image:radial-gradient(ellipse at 50% 30%,#000 30%,transparent 75%)}
+@keyframes grid{to{transform:translate(56px,56px)}}
+.blob{position:absolute;border-radius:50%;filter:blur(70px);opacity:.5}
+.b1{width:46vmax;height:46vmax;background:#B79AFF;top:-14vmax;right:-10vmax;animation:drift1 22s ease-in-out infinite alternate}
+.b2{width:38vmax;height:38vmax;background:#D7C8FF;bottom:-12vmax;left:-12vmax;animation:drift2 28s ease-in-out infinite alternate}
+.b3{width:26vmax;height:26vmax;background:#9C6BFF;top:40%;left:45%;opacity:.28;animation:drift3 18s ease-in-out infinite alternate}
+@keyframes drift1{to{transform:translate(-18vmax,22vmax) scale(1.15)}}
+@keyframes drift2{to{transform:translate(24vmax,-16vmax) scale(.9)}}
+@keyframes drift3{0%{transform:translate(-50%,-50%) scale(1)}100%{transform:translate(-10%,-90%) scale(1.3)}}
+
+.wrap{max-width:1160px;margin-inline:auto}
+h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.08;letter-spacing:-.01em;margin:0;text-wrap:balance}
+h2{font-size:clamp(40px,6vw,72px)}
+h3{font-size:28px;font-weight:600}
+p{margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+.label{font-family:var(--mono);font-weight:600;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.ph{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--warn);background:var(--warn-bg);border:1px dashed var(--warn);border-radius:6px;padding:2px 7px;vertical-align:middle}
+.btn{display:inline-flex;align-items:center;gap:10px;font:600 15px var(--body);letter-spacing:.02em;padding:14px 22px;border-radius:999px;border:2px solid var(--accent);background:var(--accent);color:var(--accent-ink);text-decoration:none;cursor:pointer;transition:transform .2s ease, box-shadow .2s ease}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px -10px var(--accent)}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn .arr{transition:transform .25s ease}
+.btn:hover .arr{transform:translateX(4px)}
+
+/* nav */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);margin-inline:calc(-1 * clamp(16px,4vw,48px));padding-inline:clamp(16px,4vw,48px);border-bottom:1px solid var(--line)}
+nav{display:flex;align-items:center;gap:20px;padding-block:14px}
+.logo{font-family:var(--display);font-weight:600;font-size:26px;text-decoration:none;letter-spacing:.12em}
+.logo span{color:var(--accent)}
+.links{display:flex;gap:22px;margin-left:auto;font-weight:500;font-size:15px}
+.links a{text-decoration:none;color:var(--muted)}
+.links a:hover{color:var(--ink)}
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:var(--surface)}
+.lang button{font:600 13px var(--mono);border:0;background:transparent;color:var(--muted);padding:6px 10px;border-radius:999px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--accent);color:var(--white)}
+@media (max-width:760px){.links{display:none}.lang{margin-left:auto}nav .btn{padding:10px 16px;font-size:14px}}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.25fr 1fr;gap:clamp(24px,5vw,64px);align-items:center;padding-block:clamp(40px,7vw,88px) clamp(40px,6vw,72px)}
+.hero h1{font-size:clamp(40px,7vw,100px)}
+.hero h1 .line{display:block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
+.hero h1 .line>span{display:inline-block;animation:rise .9s cubic-bezier(.2,.8,.2,1) both}
+.hero h1 .line:nth-child(2)>span{animation-delay:.12s}
+.hero h1 .line:nth-child(3)>span{animation-delay:.24s;color:var(--accent);font-style:normal}
+@keyframes rise{from{transform:translateY(100%)}to{transform:none}}
+.hero .lead{font-size:clamp(18px,2vw,21px);color:var(--muted);max-width:34ch;margin-top:24px}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
+.tag{font:500 13px var(--mono);padding:6px 12px;border-radius:999px;background:var(--mint);color:var(--mint-ink)}
+
+/* hero visual: photo frame + info chips */
+.visual{position:relative;padding:28px 0 28px 28px}
+.frame{position:relative;aspect-ratio:4/5;max-width:100%;border-radius:200px 200px 24px 24px;overflow:hidden;background:linear-gradient(160deg,var(--mint),var(--surface));border:1px solid var(--line);display:grid;place-items:center;animation:frameIn 1.1s cubic-bezier(.2,.8,.2,1) .2s both}
+.frame::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.55) 50%,transparent 65%);transform:translateX(-100%);animation:shine 6s ease-in-out 1.4s infinite}
+@keyframes frameIn{from{clip-path:inset(100% 0 0 0 round 200px 200px 24px 24px);transform:scale(1.04)}to{clip-path:inset(0 0 0 0 round 200px 200px 24px 24px);transform:none}}
+@keyframes shine{0%,70%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.chip{position:absolute;display:grid;gap:2px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:12px 16px;box-shadow:0 18px 40px -22px rgba(43,21,87,.45);animation:chipIn .8s cubic-bezier(.2,.8,.2,1) both,bob 5s ease-in-out infinite alternate}
+.chip b{font-family:var(--display);font-weight:600;font-size:20px;line-height:1.1}
+.chip.c1{top:14%;left:0;animation-delay:.8s,1.6s}
+.chip.c2{top:44%;right:-8px;animation-delay:1s,2.4s}
+.chip.c3{bottom:6%;left:8%;background:var(--accent);border-color:var(--accent);color:var(--white);animation-delay:1.2s,3.2s}
+.chip.c3 .label{color:#E7DDFF}
+@keyframes chipIn{from{opacity:0;transform:translateY(16px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes bob{from{translate:0 0}to{translate:0 -10px}}
+@media (max-width:900px){.visual{max-width:440px;padding-left:16px}.chip.c2{right:0}}
+
+/* ticker */
+.ticker{margin-inline:calc(-1 * clamp(16px,4vw,48px));background:linear-gradient(90deg,var(--ink),var(--accent));color:var(--white);overflow:hidden;padding-block:14px}
+.ticker-in{display:flex;width:max-content;animation:tick 38s linear infinite}
+.ticker-in span{font-family:"Onest",var(--body);font-weight:500;font-size:21px;letter-spacing:.01em;white-space:nowrap;display:inline-flex;align-items:center;gap:26px;margin-right:26px}
+.ticker-in span::after{content:"";width:6px;height:6px;border-radius:50%;background:#D9C9FF}
+
+@keyframes tick{to{transform:translateX(-50%)}}
+
+section{padding-block:clamp(56px,8vw,104px)}
+.sec-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:16px 32px;margin-bottom:40px}
+.sec-head p{max-width:46ch;color:var(--muted)}
+
+/* reveal: visible at rest, animates only where scroll timelines exist */
+@supports (animation-timeline: view()){
+  .rv{animation:rv linear both;animation-timeline:view();animation-range:entry 0% entry 40%}
+  @keyframes rv{from{transform:translateY(36px);opacity:.25}to{transform:none;opacity:1}}
+}
+
+/* hero path cards */
+.paths{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:30px;max-width:560px}
+.path{display:grid;gap:4px;text-decoration:none;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px 18px;transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;animation:chipIn .7s cubic-bezier(.2,.8,.2,1) both}
+.path:nth-child(1){animation-delay:.45s}.path:nth-child(2){animation-delay:.6s}
+.path:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:0 16px 30px -20px var(--accent)}
+.path b{font-family:var(--display);font-size:21px;font-weight:600;line-height:1.15}
+.path small{font-size:14px;color:var(--muted)}
+.path .go{font-weight:600;font-size:14px;color:var(--accent);margin-top:6px}
+.path.dark{background:var(--ink);border-color:var(--ink);color:var(--white)}
+.path.dark .label,.path.dark small{color:#D9C9FF}
+.path.dark .go{color:var(--white)}
+
+/* products */
+.products{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:stretch}
+.prod{position:relative;border-radius:28px;padding:clamp(26px,3.5vw,44px);display:flex;flex-direction:column;gap:18px;background:var(--surface);border:1px solid var(--line);scroll-margin-top:90px;transition:transform .3s ease,box-shadow .3s ease}
+.prod:hover{transform:translateY(-4px);box-shadow:0 30px 60px -40px var(--accent)}
+.prod.course{background:radial-gradient(130% 100% at 100% 0%,var(--accent) 0%,var(--ink) 65%);border-color:var(--ink);color:var(--white)}
+.prod.course .label{color:#D9C9FF}
+.prod.course .desc{color:rgba(255,255,255,.88)}
+.prod .badge{align-self:start;font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 12px;border-radius:999px;background:var(--mint);color:var(--mint-ink)}
+.prod.course .badge{background:rgba(255,255,255,.14);color:var(--white)}
+.prod h3{font-size:clamp(30px,3.4vw,42px)}
+.prod .desc{color:var(--muted)}
+.modes{display:flex;flex-wrap:wrap;gap:8px}
+.mode{font-size:14px;font-weight:600;padding:8px 14px;border-radius:999px;border:1px solid var(--line)}
+.prod ul{margin:0;padding:0;list-style:none;display:grid;gap:12px}
+.prod li{display:flex;gap:12px;align-items:flex-start}
+.prod li svg{flex:none;margin-top:3px;color:var(--accent)}
+.prod.course li svg{color:#CDB6FF}
+.prod .foot{margin-top:auto;padding-top:20px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px}
+.prod.course .foot{border-color:rgba(255,255,255,.2)}
+.amt{font-family:var(--display);font-weight:600;font-size:clamp(28px,3vw,36px);line-height:1;font-variant-numeric:tabular-nums}
+.amt small{font-family:var(--body);font-size:14px;font-weight:500;opacity:.8;margin-inline:3px}
+.prod.course .btn{background:var(--white);color:var(--ink);border-color:var(--white)}
+.prod.course .ph{color:var(--warn-bg);background:transparent;border-color:var(--warn-bg)}
+
+/* compare */
+.cmp-wrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:22px}
+.cmp{width:100%;border-collapse:collapse;min-width:560px}
+.cmp th,.cmp td{text-align:left;padding:16px 20px;border-bottom:1px solid var(--line);vertical-align:top}
+.cmp tr:last-child td{border-bottom:0}
+.cmp thead th{font-family:var(--display);font-size:20px;font-weight:600}
+.cmp thead th:last-child{color:var(--accent)}
+.cmp tbody th{font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);width:24%}
+
+/* course inside */
+.inside{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.in{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:28px;display:grid;gap:14px;align-content:start}
+.in .ic{width:56px;height:56px;border-radius:16px;display:grid;place-items:center;background:var(--mint);color:var(--mint-ink)}
+.in p{color:var(--muted)}
+.month{margin-top:28px;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:24px 28px;display:grid;gap:14px}
+.weeks{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.wk{display:grid;gap:8px}
+.wk i{display:block;height:8px;border-radius:4px;background:var(--line);position:relative;overflow:hidden}
+.wk i::after{content:"";position:absolute;inset:0;background:var(--accent);transform-origin:left;animation:wk 8s linear infinite}
+.wk:nth-child(1) i::after{animation-name:wk1}.wk:nth-child(2) i::after{animation-name:wk2}.wk:nth-child(3) i::after{animation-name:wk3}.wk:nth-child(4) i::after{animation-name:wk4}
+@keyframes wk1{0%{transform:scaleX(0)}20%,100%{transform:scaleX(1)}}
+@keyframes wk2{0%,20%{transform:scaleX(0)}40%,100%{transform:scaleX(1)}}
+@keyframes wk3{0%,40%{transform:scaleX(0)}60%,100%{transform:scaleX(1)}}
+@keyframes wk4{0%,60%{transform:scaleX(0)}80%,100%{transform:scaleX(1)}}
+.wk span{font-size:13px;font-weight:600;color:var(--muted)}
+
+/* CTA band */
+.band{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px;background:var(--mint);border-radius:24px;padding:clamp(24px,4vw,40px)}
+.band h3{font-size:clamp(24px,3vw,34px);max-width:26ch}
+
+/* sticky mobile CTA */
+.sticky{position:fixed;left:0;right:0;bottom:0;z-index:20;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(10px);border-top:1px solid var(--line);display:none;gap:10px;transform:translateY(110%);transition:transform .35s ease}
+.sticky.on{transform:none}
+.sticky .btn{flex:1;justify-content:center;padding:12px 14px;font-size:14px}
+@media (max-width:760px){.sticky{display:flex}body{padding-bottom:84px}.paths{grid-template-columns:1fr}}
+@media (max-width:900px){.products,.inside{grid-template-columns:1fr}}
+
+/* about */
+.about{display:grid;grid-template-columns:1fr 1.2fr;gap:clamp(24px,5vw,64px);align-items:center}
+.photo{aspect-ratio:4/5;max-width:100%;border-radius:22px;border:2px dashed var(--line);background:var(--surface);display:grid;place-items:center;text-align:center;padding:24px;color:var(--muted)}
+.about .txt{display:grid;gap:18px}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:8px}
+.fact{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px}
+.fact b{display:block;font-weight:500;font-family:var(--display);font-size:34px;line-height:1}
+
+/* results */
+.results{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.ba{position:relative;margin:0;display:grid;gap:12px}
+.ba-pane{grid-area:1/1;aspect-ratio:4/5;max-width:100%;border-radius:18px;display:grid;place-items:center;border:1px solid var(--line)}
+.ba-pane.after{background:var(--mint)}
+.ba-pane.before{background:var(--surface);clip-path:inset(0 calc(100% - var(--pos)) 0 0)}
+.ba-handle{grid-area:1/1;justify-self:start;width:2px;background:var(--accent);margin-left:var(--pos);transform:translateX(-1px);pointer-events:none;position:relative}
+.ba-handle span{position:absolute;top:50%;left:50%;translate:-50% -50%;width:40px;height:40px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-size:18px;box-shadow:0 6px 18px -6px var(--accent)}
+.ba input{grid-area:1/1;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
+.ba input:focus-visible ~ figcaption{outline:3px solid var(--accent);outline-offset:4px;border-radius:6px}
+.ba.demo .ba-pane.before{transition:clip-path .9s cubic-bezier(.45,0,.55,1)}
+.ba.demo .ba-handle{transition:margin-left .9s cubic-bezier(.45,0,.55,1)}
+.ba figcaption{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.hint{font-size:14px;color:var(--muted);margin-top:16px}
+.reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.rev{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:26px;display:flex;flex-direction:column;gap:16px}
+.stars{color:var(--line);letter-spacing:3px}
+.rev footer{display:flex;align-items:center;gap:10px;margin-top:auto;padding:0}
+.av{width:36px;height:36px;border-radius:50%;background:var(--mint)}
+@media (max-width:900px){.results,.reviews{grid-template-columns:1fr}.results{max-width:420px}}
+
+/* contact */
+.contact{background:radial-gradient(120% 120% at 100% 0%,var(--accent) 0%,var(--ink) 60%);color:var(--white);border-radius:28px;padding:clamp(28px,5vw,64px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,56px)}
+.contact h2{color:var(--white)}
+.contact .label{color:#D9C9FF}
+.contact p{color:rgba(255,255,255,.88)}
+.clist{display:grid;gap:12px;margin-top:24px}
+.crow{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.2)}
+form{display:grid;gap:14px}
+form label{display:grid;gap:6px;font-size:14px;font-weight:600}
+input,select,textarea{font:16px var(--body);padding:13px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.08);color:var(--white);width:100%}
+textarea{min-height:90px;resize:vertical}
+.contact .btn{justify-self:start;background:var(--white);color:var(--ink);border-color:var(--white)}
+select option{color:var(--ink)}
+.msg{font-size:14px;color:#E7DDFF}
+.contact .ph{color:var(--warn-bg);background:transparent;border-color:var(--warn-bg)}
+
+footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding-block:32px;color:var(--muted);font-size:14px}
+
+@media (max-width:900px){
+  .hero,.about,.contact{grid-template-columns:1fr}
+}
+@media (max-width:620px){
+  .facts{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+
+<div class="bgfx" aria-hidden="true"><span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="ok" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+<div class="wrap">
+<header>
+  <nav>
+    <a class="logo" href="#top">MARIA<span>.</span></a>
+    <div class="links">
+      <a href="#coaching" data-i="nav1">Personal coaching</a>
+      <a href="#course" data-i="nav2">Online course</a>
+      <a href="#results" data-i="nav3">Results</a>
+      <a href="#about" data-i="nav4">About</a>
+    </div>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" id="l-en" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" id="l-ru" data-lang="ru" aria-pressed="false">RU</button>
+    </div>
+    <a class="btn" href="#contact" data-i="req">Leave a request</a>
+  </nav>
+</header>
+
+<main id="top">
+<div class="hero">
+  <div>
+    <p class="label" data-i="eyebrow">Personal trainer · Dubai · Online</p>
+    <h1 style="margin-top:18px">
+      <span class="line"><span data-i="h1a">Transform</span></span>
+      <span class="line"><span data-i="h1b">body and mind</span></span>
+      <span class="line"><span data-i="h1c">with Maria.</span></span>
+    </h1>
+    <p class="lead" data-i="lead">Two ways to work with Maria. Choose the one that suits you:</p>
+    <div class="paths">
+      <a class="path" href="#coaching" data-pick="coach-online">
+        <span class="label" data-i="p1L">1:1 · Online or Dubai</span>
+        <b data-i="p1H">Personal coaching</b>
+        <small data-i="p1S">From AED 20,000 / month</small>
+        <span class="go"><span data-i="more">Learn more</span> →</span>
+      </a>
+      <a class="path dark" href="#course" data-pick="course">
+        <span class="label" data-i="p2L">Online course · 1 month</span>
+        <b data-i="p2H">Mind &amp; Body Transformation</b>
+        <small data-i="p2S">Workouts, nutrition, lectures</small>
+        <span class="go"><span data-i="more">Learn more</span> →</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="visual">
+    <div class="frame"><span class="ph" data-i="phPhoto">Maria's photo</span></div>
+    <div class="chip c1"><span class="label" data-i="c1L">1:1</span><b data-i="c1">Online &amp; Dubai</b></div>
+    <div class="chip c2"><span class="label" data-i="c2L">Course</span><b data-i="c2">1 month</b></div>
+    <div class="chip c3"><span class="label" data-i="c3L">Personal coaching</span><b data-i="p1S">From AED 20,000 / month</b></div>
+  </div>
+</div>
+
+<div class="ticker" aria-hidden="true"><div class="ticker-in" id="ticker"></div></div>
+
+<section id="products">
+  <div class="sec-head rv">
+    <h2 data-i="prodH">Choose your format</h2>
+    <p data-i="prodP">Personal coaching is individual work with Maria. The course is a one-month program you follow on your own.</p>
+  </div>
+  <div class="products">
+    <article class="prod rv" id="coaching">
+      <span class="badge" data-i="b1">Product 1 · 1:1</span>
+      <h3 data-i="p1H">Personal coaching</h3>
+      <p class="desc" data-i="p1D">Maria works with you personally, one to one. Train with her online from anywhere or in person in Dubai.</p>
+      <div class="modes"><span class="mode" data-i="m1">Online</span><span class="mode" data-i="m2">Offline in Dubai</span></div>
+      <ul>
+        <li><svg width="18" height="18"><use href="#ok"/></svg><span data-i="c1a">Individual training with Maria</span></li>
+        <li><svg width="18" height="18"><use href="#ok"/></svg><span data-i="c1b">Online or in person in Dubai</span></li>
+        <li><svg width="18" height="18"><use href="#ok"/></svg><span data-i="c1c">Monthly package</span></li>
+        <li><svg width="18" height="18"><use href="#ok"/></svg><span class="ph" data-i="phSess">Sessions per month: add</span></li>
+      </ul>
+      <div class="foot">
+        <div class="amt"><small data-i="from">From</small>AED 20,000<small data-i="mo">/ month</small></div>
+        <a class="btn" href="#contact" data-pick="coach-online"><span data-i="ctaCoach">Request coaching</span> <span class="arr">→</span></a>
+      </div>
+    </article>
+
+    <article class="prod course rv" id="course">
+      <span class="badge" data-i="b2">Product 2 · Online course</span>
+      <h3 data-i="p2H">Mind &amp; Body Transformation</h3>
+      <p class="desc" data-i="p2D">A one-month online course: pre-recorded workouts by Maria, nutrition programs and lectures on nutrition.</p>
+      <div class="modes"><span class="mode" style="border-color:rgba(255,255,255,.3)" data-i="m3">Online</span><span class="mode" style="border-color:rgba(255,255,255,.3)" data-i="m4">1 month</span></div>
+      <ul>
+        <li><svg width="18" height="18"><use href="#ok"/></svg><span data-i="c2a">Pre-recorded online workouts</span></li>
+        <li><svg width="18" height="18"><use href="#ok"/></svg><span data-i="c2b">Nutrition programs</span></li>
+        <li><svg width="18" height="18"><use href="#ok"/></svg><span data-i="c2c">Lectures on nutrition</span></li>
+        <li><svg width="18" height="18"><use href="#ok"/></svg><span data-i="c2d">Duration: 1 month</span></li>
+      </ul>
+      <div class="foot">
+        <div class="amt"><span class="ph" data-i="phPrice">Price: add</span></div>
+        <a class="btn" href="#contact" data-pick="course"><span data-i="ctaCourse">Join the course</span> <span class="arr">→</span></a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="compare" style="padding-top:0">
+  <div class="sec-head rv">
+    <h2 data-i="cmpH">Which one suits you</h2>
+  </div>
+  <div class="cmp-wrap rv">
+    <table class="cmp">
+      <thead><tr><th></th><th data-i="p1H">Personal coaching</th><th data-i="p2H">Mind &amp; Body Transformation</th></tr></thead>
+      <tbody>
+        <tr><th data-i="r1">Format</th><td data-i="r1a">Online or in person in Dubai</td><td data-i="r1b">Online</td></tr>
+        <tr><th data-i="r2">Training</th><td data-i="r2a">Individually with Maria</td><td data-i="r2b">Pre-recorded workouts by Maria</td></tr>
+        <tr><th data-i="r3">Nutrition</th><td><span class="ph" data-i="phConfirm">Confirm</span></td><td data-i="r3b">Nutrition programs and lectures</td></tr>
+        <tr><th data-i="r4">Duration</th><td data-i="r4a">Monthly packages</td><td data-i="r4b">1 month</td></tr>
+        <tr><th data-i="r5">Price</th><td data-i="p1S">From AED 20,000 / month</td><td><span class="ph" data-i="phPrice">Price: add</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="course-inside">
+  <div class="sec-head rv">
+    <h2 data-i="inH">Inside the course</h2>
+    <p data-i="inP">Mind &amp; Body Transformation: everything for one month in one online course.</p>
+  </div>
+  <div class="inside">
+    <div class="in rv">
+      <div class="ic" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="15" height="14" rx="2.5"/><path d="M17.5 10l4-2.5v9l-4-2.5"/></svg></div>
+      <h3 data-i="i1H">Online workouts</h3>
+      <p data-i="i1P">Workouts recorded by Maria in advance. Play them at a time that suits you.</p>
+    </div>
+    <div class="in rv">
+      <div class="ic" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7c-1.5-1.2-5-1.3-6.3 1.8C4.3 12 6.5 20 9.5 20c1 0 1.5-.6 2.5-.6s1.5.6 2.5.6c3 0 5.2-8 3.8-11.2C17 5.7 13.5 5.8 12 7z"/><path d="M12 7c0-2 1-3.5 3-4"/></svg></div>
+      <h3 data-i="i2H">Nutrition programs</h3>
+      <p data-i="i2P">Nutrition plans that go together with the workouts.</p>
+    </div>
+    <div class="in rv">
+      <div class="ic" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5.5A1.5 1.5 0 0 1 4.5 4H10a2 2 0 0 1 2 2v14a2 2 0 0 0-2-2H3z"/><path d="M21 5.5A1.5 1.5 0 0 0 19.5 4H14a2 2 0 0 0-2 2v14a2 2 0 0 1 2-2h7z"/></svg></div>
+      <h3 data-i="i3H">Nutrition lectures</h3>
+      <p data-i="i3P">Lectures where Maria explains how nutrition works.</p>
+    </div>
+  </div>
+  <div class="month rv">
+    <span class="label" data-i="mL">Course length · 1 month</span>
+    <div class="weeks" aria-hidden="true">
+      <div class="wk"><i></i><span data-i="w1">Week 1</span></div>
+      <div class="wk"><i></i><span data-i="w2">Week 2</span></div>
+      <div class="wk"><i></i><span data-i="w3">Week 3</span></div>
+      <div class="wk"><i></i><span data-i="w4">Week 4</span></div>
+    </div>
+  </div>
+  <div style="margin-top:24px" class="rv"><a class="btn" href="#contact" data-pick="course"><span data-i="ctaCourse">Join the course</span> <span class="arr">→</span></a></div>
+</section>
+
+<section id="results">
+  <div class="sec-head rv">
+    <h2 data-i="rH">Client results</h2>
+    <p><span class="ph" data-i="phRes">Real client photos and results: add (with client consent)</span></p>
+  </div>
+  <div class="results">
+    <figure class="ba rv" style="--pos:50%">
+      <div class="ba-pane after"><span class="ph" data-i="phAfter">After photo</span></div>
+      <div class="ba-pane before"><span class="ph" data-i="phBefore">Before photo</span></div>
+      <div class="ba-handle" aria-hidden="true"><span>⇆</span></div>
+      <input type="range" id="ba-1" min="0" max="100" value="50" aria-label="Before / after">
+      <figcaption><span class="label" data-i="rC">Client · Product</span><span class="ph" data-i="phAdd">Add</span></figcaption>
+    </figure>
+    <figure class="ba rv" style="--pos:50%">
+      <div class="ba-pane after"><span class="ph" data-i="phAfter">After photo</span></div>
+      <div class="ba-pane before"><span class="ph" data-i="phBefore">Before photo</span></div>
+      <div class="ba-handle" aria-hidden="true"><span>⇆</span></div>
+      <input type="range" id="ba-2" min="0" max="100" value="50" aria-label="Before / after">
+      <figcaption><span class="label" data-i="rC">Client · Product</span><span class="ph" data-i="phAdd">Add</span></figcaption>
+    </figure>
+    <figure class="ba rv" style="--pos:50%">
+      <div class="ba-pane after"><span class="ph" data-i="phAfter">After photo</span></div>
+      <div class="ba-pane before"><span class="ph" data-i="phBefore">Before photo</span></div>
+      <div class="ba-handle" aria-hidden="true"><span>⇆</span></div>
+      <input type="range" id="ba-3" min="0" max="100" value="50" aria-label="Before / after">
+      <figcaption><span class="label" data-i="rC">Client · Product</span><span class="ph" data-i="phAdd">Add</span></figcaption>
+    </figure>
+  </div>
+  <p class="hint" data-i="rHint">Drag across a photo to compare before and after.</p>
+
+  <div class="sec-head rv" style="margin-top:72px;margin-bottom:28px">
+    <h2 data-i="rvH">Reviews</h2>
+    <p><span class="ph" data-i="phRev">Real client reviews: add</span></p>
+  </div>
+  <div class="reviews">
+    <blockquote class="rev rv"><div class="stars" aria-hidden="true">★★★★★</div><p><span class="ph" data-i="phQuote">Review text</span></p><footer><span class="av" aria-hidden="true"></span><span class="ph" data-i="phName">Client name</span></footer></blockquote>
+    <blockquote class="rev rv"><div class="stars" aria-hidden="true">★★★★★</div><p><span class="ph" data-i="phQuote">Review text</span></p><footer><span class="av" aria-hidden="true"></span><span class="ph" data-i="phName">Client name</span></footer></blockquote>
+    <blockquote class="rev rv"><div class="stars" aria-hidden="true">★★★★★</div><p><span class="ph" data-i="phQuote">Review text</span></p><footer><span class="av" aria-hidden="true"></span><span class="ph" data-i="phName">Client name</span></footer></blockquote>
+  </div>
+
+  <div class="band rv" style="margin-top:56px">
+    <h3 data-i="bandH">Not sure which format to choose? Leave a request and ask Maria.</h3>
+    <a class="btn" href="#contact"><span data-i="req">Leave a request</span> <span class="arr">→</span></a>
+  </div>
+</section>
+
+<section id="about">
+  <div class="about">
+    <div class="photo rv"><div><span class="ph" data-i="phPhoto">Maria's photo</span></div></div>
+    <div class="txt rv">
+      <span class="label" data-i="aL">About</span>
+      <h2 data-i="aH">Maria</h2>
+      <p><span class="ph" data-i="phBio">Bio: experience, approach, specialisations</span></p>
+      <div class="facts">
+        <div class="fact"><b class="ph">—</b><span class="label" data-i="f1">Years coaching</span></div>
+        <div class="fact"><b>✓</b><span class="label" data-i="f2">Fully certified</span></div>
+        <div class="fact"><b class="ph">—</b><span class="label" data-i="f3">Specialisation</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact rv">
+    <div>
+      <span class="label" data-i="cL">Request</span>
+      <h2 style="margin-top:14px" data-i="cH">Start with Maria</h2>
+      <p style="margin-top:16px" data-i="cP">Choose a product and leave your contact. Maria will get back to you.</p>
+      <div class="clist">
+        <div class="crow"><span>WhatsApp</span><span class="ph" data-i="phAdd">Add</span></div>
+        <div class="crow"><span>Instagram</span><span class="ph" data-i="phAdd">Add</span></div>
+      </div>
+    </div>
+    <form id="bookForm" novalidate>
+      <label for="f-prod"><span data-i="fmProd">What are you interested in?</span>
+        <select id="f-prod" name="product">
+          <option value="coach-online" data-i="o1">Personal coaching · online</option>
+          <option value="coach-dubai" data-i="o2">Personal coaching · offline in Dubai</option>
+          <option value="course" data-i="o3">Online course · Mind &amp; Body Transformation</option>
+        </select>
+      </label>
+      <label for="f-name"><span data-i="fmName">Name</span><input id="f-name" name="name" autocomplete="name" required></label>
+      <label for="f-phone"><span data-i="fmPhone">WhatsApp or phone</span><input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required></label>
+      <label for="f-goal"><span data-i="fmGoal">Your goal (optional)</span><textarea id="f-goal" name="goal"></textarea></label>
+      <button class="btn" type="submit"><span data-i="fmSend">Send request</span> <span class="arr">→</span></button>
+      <p class="msg" id="formMsg" hidden></p>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <span>© Maria · Dubai</span>
+  <span data-i="foot">Personal coaching and online course</span>
+</footer>
+</div>
+
+<div class="sticky" id="sticky">
+  <a class="btn ghost" href="#course" data-i="nav2">Online course</a>
+  <a class="btn" href="#contact" data-i="req">Leave a request</a>
+</div>
+
+<script>
+const T = {
+  en:{nav1:"Personal coaching",nav2:"Online course",nav3:"Results",nav4:"About",req:"Leave a request",
+    eyebrow:"Personal trainer · Dubai · Online",h1a:"Transform",h1b:"body and mind",h1c:"with Maria.",
+    lead:"Two ways to work with Maria. Choose the one that suits you:",
+    p1L:"1:1 · Online or Dubai",p1H:"Personal coaching",p1S:"From AED 20,000 / month",more:"Learn more",
+    p2L:"Online course · 1 month",p2H:"Mind & Body Transformation",p2S:"Workouts, nutrition, lectures",
+    c1L:"1:1",c1:"Online & Dubai",c2L:"Course",c2:"1 month",c3L:"Personal coaching",
+    prodH:"Choose your format",prodP:"Personal coaching is individual work with Maria. The course is a one-month program you follow on your own.",
+    b1:"Product 1 · 1:1",p1D:"Maria works with you personally, one to one. Train with her online from anywhere or in person in Dubai.",
+    m1:"Online",m2:"Offline in Dubai",c1a:"Individual training with Maria",c1b:"Online or in person in Dubai",c1c:"Monthly package",phSess:"Sessions per month: add",
+    from:"From",mo:"/ month",ctaCoach:"Request coaching",
+    b2:"Product 2 · Online course",p2D:"A one-month online course: pre-recorded workouts by Maria, nutrition programs and lectures on nutrition.",
+    m3:"Online",m4:"1 month",c2a:"Pre-recorded online workouts",c2b:"Nutrition programs",c2c:"Lectures on nutrition",c2d:"Duration: 1 month",phPrice:"Price: add",ctaCourse:"Join the course",
+    cmpH:"Which one suits you",r1:"Format",r1a:"Online or in person in Dubai",r1b:"Online",r2:"Training",r2a:"Individually with Maria",r2b:"Pre-recorded workouts by Maria",
+    r3:"Nutrition",phConfirm:"Confirm",r3b:"Nutrition programs and lectures",r4:"Duration",r4a:"Monthly packages",r4b:"1 month",r5:"Price",
+    inH:"Inside the course",inP:"Mind & Body Transformation: everything for one month in one online course.",
+    i1H:"Online workouts",i1P:"Workouts recorded by Maria in advance. Play them at a time that suits you.",
+    i2H:"Nutrition programs",i2P:"Nutrition plans that go together with the workouts.",
+    i3H:"Nutrition lectures",i3P:"Lectures where Maria explains how nutrition works.",
+    mL:"Course length · 1 month",w1:"Week 1",w2:"Week 2",w3:"Week 3",w4:"Week 4",
+    rH:"Client results",phRes:"Real client photos and results: add (with client consent)",phAfter:"After photo",phBefore:"Before photo",rC:"Client · Product",phAdd:"Add",rHint:"Drag across a photo to compare before and after.",
+    rvH:"Reviews",phRev:"Real client reviews: add",phQuote:"Review text",phName:"Client name",
+    bandH:"Not sure which format to choose? Leave a request and ask Maria.",
+    aL:"About",aH:"Maria",phPhoto:"Maria's photo",phBio:"Bio: experience, approach, specialisations",f1:"Years coaching",f2:"Fully certified",f3:"Specialisation",
+    cL:"Request",cH:"Start with Maria",cP:"Choose a product and leave your contact. Maria will get back to you.",
+    fmProd:"What are you interested in?",o1:"Personal coaching · online",o2:"Personal coaching · offline in Dubai",o3:"Online course · Mind & Body Transformation",
+    fmName:"Name",fmPhone:"WhatsApp or phone",fmGoal:"Your goal (optional)",fmSend:"Send request",
+    fmOk:"Preview only: this form is not connected yet. Before launch it will send requests to Maria's WhatsApp.",fmErr:"Enter your name and WhatsApp or phone.",
+    foot:"Personal coaching and online course",
+    tick:["Personal coaching","Online course","Mind & Body","Dubai","Nutrition","Workouts","1:1 with Maria","1 month"]},
+  ru:{nav1:"Личное ведение",nav2:"Онлайн-курс",nav3:"Результаты",nav4:"О Марии",req:"Оставить заявку",
+    eyebrow:"Персональный тренер · Дубай · Онлайн",h1a:"Трансформация",h1b:"ума и тела",h1c:"с Марией.",
+    lead:"Два формата работы с Марией. Выберите свой:",
+    p1L:"1:1 · Онлайн или Дубай",p1H:"Личное ведение",p1S:"От 20 000 AED / месяц",more:"Подробнее",
+    p2L:"Онлайн-курс · 1 месяц",p2H:"Трансформация ума и тела",p2S:"Тренировки, питание, лекции",
+    c1L:"1:1",c1:"Онлайн и Дубай",c2L:"Курс",c2:"1 месяц",c3L:"Личное ведение",
+    prodH:"Выберите формат",prodP:"Личное ведение — это индивидуальная работа с Марией. Курс — программа на один месяц, которую вы проходите самостоятельно.",
+    b1:"Продукт 1 · 1:1",p1D:"Мария работает с вами лично, один на один. Онлайн из любой точки мира или вживую в Дубае.",
+    m1:"Онлайн",m2:"Офлайн в Дубае",c1a:"Индивидуальные тренировки с Марией",c1b:"Онлайн или вживую в Дубае",c1c:"Пакет на месяц",phSess:"Тренировок в месяц: добавить",
+    from:"От",mo:"/ месяц",ctaCoach:"Оставить заявку на ведение",
+    b2:"Продукт 2 · Онлайн-курс",p2D:"Онлайн-курс на один месяц: записанные Марией тренировки, программы питания и лекции о питании.",
+    m3:"Онлайн",m4:"1 месяц",c2a:"Записанные онлайн-тренировки",c2b:"Программы питания",c2c:"Лекции о питании",c2d:"Длительность: 1 месяц",phPrice:"Цена: добавить",ctaCourse:"Записаться на курс",
+    cmpH:"Что подходит вам",r1:"Формат",r1a:"Онлайн или вживую в Дубае",r1b:"Онлайн",r2:"Тренировки",r2a:"Индивидуально с Марией",r2b:"Записанные тренировки от Марии",
+    r3:"Питание",phConfirm:"Уточнить",r3b:"Программы питания и лекции",r4:"Длительность",r4a:"Пакеты на месяц",r4b:"1 месяц",r5:"Цена",
+    inH:"Что внутри курса",inP:"«Трансформация ума и тела»: всё на один месяц в одном онлайн-курсе.",
+    i1H:"Онлайн-тренировки",i1P:"Тренировки, заранее записанные Марией. Включайте их в удобное время.",
+    i2H:"Программы питания",i2P:"Планы питания, которые идут вместе с тренировками.",
+    i3H:"Лекции о питании",i3P:"Лекции, в которых Мария объясняет, как работает питание.",
+    mL:"Длительность курса · 1 месяц",w1:"Неделя 1",w2:"Неделя 2",w3:"Неделя 3",w4:"Неделя 4",
+    rH:"Результаты клиентов",phRes:"Реальные фото и результаты клиентов: добавить (с согласия клиентов)",phAfter:"Фото после",phBefore:"Фото до",rC:"Клиент · Продукт",phAdd:"Добавить",rHint:"Проведите по фото, чтобы сравнить до и после.",
+    rvH:"Отзывы",phRev:"Реальные отзывы клиентов: добавить",phQuote:"Текст отзыва",phName:"Имя клиента",
+    bandH:"Не знаете, какой формат выбрать? Оставьте заявку и спросите Марию.",
+    aL:"О Марии",aH:"Мария",phPhoto:"Фото Марии",phBio:"Био: опыт, подход, специализация",f1:"Лет опыта",f2:"Полностью сертифицирована",f3:"Специализация",
+    cL:"Заявка",cH:"Начните с Марией",cP:"Выберите продукт и оставьте контакт. Мария свяжется с вами.",
+    fmProd:"Что вас интересует?",o1:"Личное ведение · онлайн",o2:"Личное ведение · офлайн в Дубае",o3:"Онлайн-курс · Трансформация ума и тела",
+    fmName:"Имя",fmPhone:"WhatsApp или телефон",fmGoal:"Ваша цель (необязательно)",fmSend:"Отправить заявку",
+    fmOk:"Это превью: форма пока не подключена. Перед запуском заявки будут приходить Марии в WhatsApp.",fmErr:"Введите имя и WhatsApp или телефон.",
+    foot:"Личное ведение и онлайн-курс",
+    tick:["Личное ведение","Онлайн-курс","Ум и тело","Дубай","Питание","Тренировки","1:1 с Марией","1 месяц"]}
+};
+let lang="en";
+function setLang(l){
+  lang=l; const d=T[l];
+  document.documentElement.lang=l;
+  document.querySelectorAll("[data-i]").forEach(el=>{const k=el.dataset.i; if(d[k]!=null) el.textContent=d[k];});
+  document.querySelectorAll(".lang button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.lang===l));
+  const words=[...d.tick,...d.tick,...d.tick];
+  document.getElementById("ticker").innerHTML=words.map(w=>"<span>"+w+"</span>").join("");
+  const m=document.getElementById("formMsg"); if(!m.hidden) m.hidden=true;
+  try{localStorage.setItem("maria-lang",l)}catch(e){}
+}
+document.querySelectorAll(".lang button").forEach(b=>b.addEventListener("click",()=>setLang(b.dataset.lang)));
+let saved=null; try{saved=localStorage.getItem("maria-lang")}catch(e){}
+setLang(saved||((navigator.language||"").toLowerCase().startsWith("ru")?"ru":"en"));
+
+// any "choose" button pre-selects the product in the form
+document.querySelectorAll("[data-pick]").forEach(a=>a.addEventListener("click",()=>{document.getElementById("f-prod").value=a.dataset.pick}));
+
+// sticky CTA on phones after the hero
+const hero=document.querySelector(".hero"), sticky=document.getElementById("sticky");
+if("IntersectionObserver" in window){
+  new IntersectionObserver(([e])=>sticky.classList.toggle("on",!e.isIntersecting)).observe(hero);
+}
+
+// before/after sliders + a one-time sweep when each comes into view
+document.querySelectorAll(".ba").forEach(fig=>{
+  const r=fig.querySelector("input");
+  r.addEventListener("input",()=>{fig.classList.remove("demo");fig.style.setProperty("--pos",r.value+"%")});
+});
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+if(!reduce && "IntersectionObserver" in window){
+  const io=new IntersectionObserver(es=>es.forEach(en=>{
+    if(!en.isIntersecting) return; io.unobserve(en.target);
+    const f=en.target, r=f.querySelector("input"); f.classList.add("demo");
+    [[80,0],[25,900],[50,1800]].forEach(([v,t])=>setTimeout(()=>{if(f.classList.contains("demo")){r.value=v;f.style.setProperty("--pos",v+"%")}},t+200));
+  }),{threshold:.5});
+  document.querySelectorAll(".ba").forEach(f=>io.observe(f));
+}
+
+document.getElementById("bookForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const m=document.getElementById("formMsg");
+  const ok=document.getElementById("f-name").value.trim() && document.getElementById("f-phone").value.trim();
+  m.textContent=ok?T[lang].fmOk:T[lang].fmErr; m.hidden=false;
+});
+</script>
+
+</body></html>
