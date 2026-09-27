@@ -59,7 +59,7 @@ nav{display:flex;align-items:center;gap:20px;padding-block:14px}
 
 /* hero */
 .hero{display:grid;grid-template-columns:1.25fr 1fr;gap:clamp(24px,5vw,64px);align-items:center;padding-block:clamp(40px,7vw,88px) clamp(40px,6vw,72px)}
-.hero h1{font-size:clamp(40px,7vw,100px)}
+.hero h1{font-size:clamp(32px,5.5vw,80px)}
 .hero h1 .line{display:block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
 .hero h1 .line>span{display:inline-block;animation:rise .9s cubic-bezier(.2,.8,.2,1) both}
 .hero h1 .line:nth-child(2)>span{animation-delay:.12s}
@@ -105,9 +105,9 @@ section{padding-block:clamp(56px,8vw,104px)}
 }
 
 /* hero path cards */
-.paths{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:30px;max-width:560px}
+.paths{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-top:30px;max-width:640px}
 .path{display:grid;gap:4px;text-decoration:none;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px 18px;transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;animation:chipIn .7s cubic-bezier(.2,.8,.2,1) both}
-.path:nth-child(1){animation-delay:.45s}.path:nth-child(2){animation-delay:.6s}
+.path:nth-child(1){animation-delay:.45s}.path:nth-child(2){animation-delay:.6s}.path:nth-child(3){animation-delay:.75s}
 .path:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:0 16px 30px -20px var(--accent)}
 .path b{font-family:var(--display);font-size:21px;font-weight:600;line-height:1.15}
 .path small{font-size:14px;color:var(--muted)}
@@ -117,7 +117,7 @@ section{padding-block:clamp(56px,8vw,104px)}
 .path.dark .go{color:var(--white)}
 
 /* products */
-.products{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:stretch}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;align-items:stretch}
 .prod{position:relative;border-radius:28px;padding:clamp(26px,3.5vw,44px);display:flex;flex-direction:column;gap:18px;background:var(--surface);border:1px solid var(--line);scroll-margin-top:90px;transition:transform .3s ease,box-shadow .3s ease}
 .prod:hover{transform:translateY(-4px);box-shadow:0 30px 60px -40px var(--accent)}
 .prod.course{background:radial-gradient(130% 100% at 100% 0%,var(--accent) 0%,var(--ink) 65%);border-color:var(--ink);color:var(--white)}
@@ -142,11 +142,12 @@ section{padding-block:clamp(56px,8vw,104px)}
 
 /* compare */
 .cmp-wrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:22px}
-.cmp{width:100%;border-collapse:collapse;min-width:560px}
+.cmp{width:100%;border-collapse:collapse;min-width:720px}
 .cmp th,.cmp td{text-align:left;padding:16px 20px;border-bottom:1px solid var(--line);vertical-align:top}
 .cmp tr:last-child td{border-bottom:0}
 .cmp thead th{font-family:var(--display);font-size:20px;font-weight:600}
 .cmp thead th:last-child{color:var(--accent)}
+.cmp tbody th{position:sticky;left:0;background:var(--surface)}
 .cmp tbody th{font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);width:24%}
 
 /* course inside */
@@ -188,7 +189,7 @@ section{padding-block:clamp(56px,8vw,104px)}
 /* results */
 .results{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .ba{position:relative;margin:0;display:grid;gap:12px}
-.ba-pane{grid-area:1/1;aspect-ratio:4/5;max-width:100%;border-radius:18px;display:grid;place-items:center;border:1px solid var(--line)}
+.ba-pane{position:relative;grid-area:1/1;aspect-ratio:4/5;max-width:100%;border-radius:18px;display:grid;place-items:center;border:1px solid var(--line)}
 .ba-pane.after{background:var(--mint)}
 .ba-pane.before{background:var(--surface);clip-path:inset(0 calc(100% - var(--pos)) 0 0)}
 .ba-handle{grid-area:1/1;justify-self:start;width:2px;background:var(--accent);margin-left:var(--pos);transform:translateX(-1px);pointer-events:none;position:relative}
@@ -201,9 +202,9 @@ section{padding-block:clamp(56px,8vw,104px)}
 .hint{font-size:14px;color:var(--muted);margin-top:16px}
 .reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .rev{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:26px;display:flex;flex-direction:column;gap:16px}
-.stars{color:var(--line);letter-spacing:3px}
+.stars{color:var(--accent);letter-spacing:3px}
 .rev footer{display:flex;align-items:center;gap:10px;margin-top:auto;padding:0}
-.av{width:36px;height:36px;border-radius:50%;background:var(--mint)}
+.av{flex:none;width:40px;height:40px;border-radius:50%;background:var(--mint);color:var(--mint-ink);display:grid;place-items:center;font:600 16px var(--display)}
 @media (max-width:900px){.results,.reviews{grid-template-columns:1fr}.results{max-width:420px}}
 
 /* contact */
@@ -266,12 +267,19 @@ footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;paddin
       <span class="line"><span data-i="h1b">body and mind</span></span>
       <span class="line"><span data-i="h1c">with Maria.</span></span>
     </h1>
-    <p class="lead" data-i="lead">Two ways to work with Maria. Choose the one that suits you:</p>
+    <p class="lead" data-i="lead">Three ways to work with Maria. Choose the one that suits you:</p>
     <div class="paths">
       <a class="path" href="#coaching" data-pick="coach-online">
         <span class="label" data-i="p1L">1:1 · Online or Dubai</span>
         <b data-i="p1H">Personal coaching</b>
-        <small data-i="p1S">From AED 20,000 / month</small>
+        <small data-i="p1S">From AED 988 / month</small>
+        <span class="go"><span data-i="more">Learn more</span> →</span>
+      </a>
+      
+      <a class="path" href="#coaching-2" data-pick="coach-online">
+        <span class="label" data-i="p1L">1:1 · Online or Dubai</span>
+        <b data-i="p3H">Total Body Transformation</b>
+        <small data-i="p3S">From AED 19,988 / month</small>
         <span class="go"><span data-i="more">Learn more</span> →</span>
       </a>
       <a class="path dark" href="#course" data-pick="course">
@@ -284,10 +292,9 @@ footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;paddin
   </div>
 
   <div class="visual">
-    <div class="frame"><span class="ph" data-i="phPhoto">Maria's photo</span></div>
+    <div class="frame"><img src="64EDF3E9-678F-4718-8528-B162114FE3A2.PNG" alt="Maria" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 45%"></div>
     <div class="chip c1"><span class="label" data-i="c1L">1:1</span><b data-i="c1">Online &amp; Dubai</b></div>
     <div class="chip c2"><span class="label" data-i="c2L">Course</span><b data-i="c2">1 month</b></div>
-    <div class="chip c3"><span class="label" data-i="c3L">Personal coaching</span><b data-i="p1S">From AED 20,000 / month</b></div>
   </div>
 </div>
 
@@ -308,16 +315,34 @@ footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;paddin
         <li><svg width="18" height="18"><use href="#ok"/></svg><span data-i="c1a">Individual training with Maria</span></li>
         <li><svg width="18" height="18"><use href="#ok"/></svg><span data-i="c1b">Online or in person in Dubai</span></li>
         <li><svg width="18" height="18"><use href="#ok"/></svg><span data-i="c1c">Monthly package</span></li>
-        <li><svg width="18" height="18"><use href="#ok"/></svg><span class="ph" data-i="phSess">Sessions per month: add</span></li>
       </ul>
       <div class="foot">
-        <div class="amt"><small data-i="from">From</small>AED 20,000<small data-i="mo">/ month</small></div>
+        <div class="amt"><small data-i="from">From</small>AED 988<small data-i="mo">/ month</small></div>
+        <a class="btn" href="#contact" data-pick="coach-online"><span data-i="ctaCoach">Request coaching</span> <span class="arr">→</span></a>
+      </div>
+    </article>
+
+    <article class="prod rv" id="coaching-2">
+      <span class="badge" data-i="b3">Product 2 · 1:1</span>
+      <h3 data-i="p3H">Total Body Transformation</h3>
+      <p class="desc" data-i="p1D">Maria works with you personally, one to one. Train with her online from anywhere or in person in Dubai.</p>
+      <div class="modes"><span class="mode" data-i="m1">Online</span><span class="mode" data-i="m2">Offline in Dubai</span></div>
+      <ul>
+        <li><svg width="18" height="18"><use href="#ok"/></svg><span data-i="c1a">Individual training with Maria</span></li>
+        <li><svg width="18" height="18"><use href="#ok"/></svg><span data-i="c1b">Online or in person in Dubai</span></li>
+        <li><svg width="18" height="18"><use href="#ok"/></svg><span data-i="c1c">Monthly package</span></li>
+        <li><svg width="18" height="18"><use href="#ok"/></svg><span data-i="xMeal">Meal plan, food included</span></li>
+        <li><svg width="18" height="18"><use href="#ok"/></svg><span data-i="xStretch">Stretching sessions</span></li>
+        <li><svg width="18" height="18"><use href="#ok"/></svg><span data-i="xDoc">Doctor consultation</span></li>
+      </ul>
+      <div class="foot">
+        <div class="amt"><small data-i="from">From</small>AED 19,988<small data-i="mo">/ month</small></div>
         <a class="btn" href="#contact" data-pick="coach-online"><span data-i="ctaCoach">Request coaching</span> <span class="arr">→</span></a>
       </div>
     </article>
 
     <article class="prod course rv" id="course">
-      <span class="badge" data-i="b2">Product 2 · Online course</span>
+      <span class="badge" data-i="b2">Product 3 · Online course</span>
       <h3 data-i="p2H">Mind &amp; Body Transformation</h3>
       <p class="desc" data-i="p2D">A one-month online course: pre-recorded workouts by Maria, nutrition programs and lectures on nutrition.</p>
       <div class="modes"><span class="mode" style="border-color:rgba(255,255,255,.3)" data-i="m3">Online</span><span class="mode" style="border-color:rgba(255,255,255,.3)" data-i="m4">1 month</span></div>
@@ -328,10 +353,12 @@ footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;paddin
         <li><svg width="18" height="18"><use href="#ok"/></svg><span data-i="c2d">Duration: 1 month</span></li>
       </ul>
       <div class="foot">
-        <div class="amt"><span class="ph" data-i="phPrice">Price: add</span></div>
+        <div class="amt">$148</div>
         <a class="btn" href="#contact" data-pick="course"><span data-i="ctaCourse">Join the course</span> <span class="arr">→</span></a>
       </div>
     </article>
+
+    
   </div>
 </section>
 
@@ -341,13 +368,13 @@ footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;paddin
   </div>
   <div class="cmp-wrap rv">
     <table class="cmp">
-      <thead><tr><th></th><th data-i="p1H">Personal coaching</th><th data-i="p2H">Mind &amp; Body Transformation</th></tr></thead>
+      <thead><tr><th></th><th data-i="p1H">Personal coaching</th><th data-i="p3H">Total Body Transformation</th><th data-i="p2H">Mind &amp; Body Transformation</th></tr></thead>
       <tbody>
-        <tr><th data-i="r1">Format</th><td data-i="r1a">Online or in person in Dubai</td><td data-i="r1b">Online</td></tr>
-        <tr><th data-i="r2">Training</th><td data-i="r2a">Individually with Maria</td><td data-i="r2b">Pre-recorded workouts by Maria</td></tr>
-        <tr><th data-i="r3">Nutrition</th><td><span class="ph" data-i="phConfirm">Confirm</span></td><td data-i="r3b">Nutrition programs and lectures</td></tr>
-        <tr><th data-i="r4">Duration</th><td data-i="r4a">Monthly packages</td><td data-i="r4b">1 month</td></tr>
-        <tr><th data-i="r5">Price</th><td data-i="p1S">From AED 20,000 / month</td><td><span class="ph" data-i="phPrice">Price: add</span></td></tr>
+        <tr><th data-i="r1">Format</th><td data-i="r1a">Online or in person in Dubai</td><td data-i="r1a">Online or in person in Dubai</td><td data-i="r1b">Online</td></tr>
+        <tr><th data-i="r2">Training</th><td data-i="r2a">Individually with Maria</td><td data-i="r2a">Individually with Maria</td><td data-i="r2b">Pre-recorded workouts by Maria</td></tr>
+        <tr><th data-i="r3">Nutrition</th><td data-i="r3n">Included</td><td data-i="r3t">Meal plan, food included</td><td data-i="r3b">Nutrition programs and lectures</td></tr>
+        <tr><th data-i="r4">Duration</th><td data-i="r4a">Monthly packages</td><td data-i="r4a">Monthly packages</td><td data-i="r4b">1 month</td></tr>
+        <tr><th data-i="r5">Price</th><td data-i="p1S">From AED 988 / month</td><td data-i="p3S">From AED 19,988 / month</td><td>$148</td></tr>
       </tbody>
     </table>
   </div>
@@ -390,41 +417,39 @@ footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;paddin
 <section id="results">
   <div class="sec-head rv">
     <h2 data-i="rH">Client results</h2>
-    <p><span class="ph" data-i="phRes">Real client photos and results: add (with client consent)</span></p>
   </div>
   <div class="results">
     <figure class="ba rv" style="--pos:50%">
-      <div class="ba-pane after"><span class="ph" data-i="phAfter">After photo</span></div>
-      <div class="ba-pane before"><span class="ph" data-i="phBefore">Before photo</span></div>
+      <div class="ba-pane after" style="overflow:hidden"><img src="b7e2fe76-e2c0-4b0b-ac4f-58db10580c85.JPEG" alt="After" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:inherit"><span class="label" style="position:absolute;right:12px;top:12px;background:var(--surface);padding:4px 10px;border-radius:999px;color:var(--ink)" data-i="lAfter">After</span></div>
+      <div class="ba-pane before" style="overflow:hidden"><img src="4de7caa5-94ec-4c23-a212-d1735e934b0e.JPEG" alt="Before" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:inherit"><span class="label" style="position:absolute;left:12px;top:12px;background:var(--surface);padding:4px 10px;border-radius:999px;color:var(--ink)" data-i="lBefore">Before</span></div>
       <div class="ba-handle" aria-hidden="true"><span>⇆</span></div>
       <input type="range" id="ba-1" min="0" max="100" value="50" aria-label="Before / after">
-      <figcaption><span class="label" data-i="rC">Client · Product</span><span class="ph" data-i="phAdd">Add</span></figcaption>
+      <figcaption><span class="label" data-i="rC">Client · Product</span></figcaption>
     </figure>
     <figure class="ba rv" style="--pos:50%">
-      <div class="ba-pane after"><span class="ph" data-i="phAfter">After photo</span></div>
-      <div class="ba-pane before"><span class="ph" data-i="phBefore">Before photo</span></div>
+      <div class="ba-pane after" style="overflow:hidden"><img src="IMG_6795.jpg" alt="After" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:inherit"><span class="label" style="position:absolute;top:12px;background:var(--surface);padding:4px 10px;border-radius:999px;color:var(--ink);right:12px" data-i="lAfter">After</span></div>
+      <div class="ba-pane before" style="overflow:hidden"><img src="IMG_6790.jpg" alt="Before" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:inherit"><span class="label" style="position:absolute;top:12px;background:var(--surface);padding:4px 10px;border-radius:999px;color:var(--ink);left:12px" data-i="lBefore">Before</span></div>
       <div class="ba-handle" aria-hidden="true"><span>⇆</span></div>
       <input type="range" id="ba-2" min="0" max="100" value="50" aria-label="Before / after">
-      <figcaption><span class="label" data-i="rC">Client · Product</span><span class="ph" data-i="phAdd">Add</span></figcaption>
+      <figcaption><span class="label" data-i="rC">Client · Product</span></figcaption>
     </figure>
     <figure class="ba rv" style="--pos:50%">
-      <div class="ba-pane after"><span class="ph" data-i="phAfter">After photo</span></div>
-      <div class="ba-pane before"><span class="ph" data-i="phBefore">Before photo</span></div>
+      <div class="ba-pane after" style="overflow:hidden"><img src="IMG_6792.jpg" alt="After" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:inherit"><span class="label" style="position:absolute;top:12px;background:var(--surface);padding:4px 10px;border-radius:999px;color:var(--ink);right:12px" data-i="lAfter">After</span></div>
+      <div class="ba-pane before" style="overflow:hidden"><img src="IMG_6791.jpg" alt="Before" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:inherit"><span class="label" style="position:absolute;top:12px;background:var(--surface);padding:4px 10px;border-radius:999px;color:var(--ink);left:12px" data-i="lBefore">Before</span></div>
       <div class="ba-handle" aria-hidden="true"><span>⇆</span></div>
       <input type="range" id="ba-3" min="0" max="100" value="50" aria-label="Before / after">
-      <figcaption><span class="label" data-i="rC">Client · Product</span><span class="ph" data-i="phAdd">Add</span></figcaption>
+      <figcaption><span class="label" data-i="rC">Client · Product</span></figcaption>
     </figure>
   </div>
   <p class="hint" data-i="rHint">Drag across a photo to compare before and after.</p>
 
   <div class="sec-head rv" style="margin-top:72px;margin-bottom:28px">
     <h2 data-i="rvH">Reviews</h2>
-    <p><span class="ph" data-i="phRev">Real client reviews: add</span></p>
   </div>
   <div class="reviews">
-    <blockquote class="rev rv"><div class="stars" aria-hidden="true">★★★★★</div><p><span class="ph" data-i="phQuote">Review text</span></p><footer><span class="av" aria-hidden="true"></span><span class="ph" data-i="phName">Client name</span></footer></blockquote>
-    <blockquote class="rev rv"><div class="stars" aria-hidden="true">★★★★★</div><p><span class="ph" data-i="phQuote">Review text</span></p><footer><span class="av" aria-hidden="true"></span><span class="ph" data-i="phName">Client name</span></footer></blockquote>
-    <blockquote class="rev rv"><div class="stars" aria-hidden="true">★★★★★</div><p><span class="ph" data-i="phQuote">Review text</span></p><footer><span class="av" aria-hidden="true"></span><span class="ph" data-i="phName">Client name</span></footer></blockquote>
+    <blockquote class="rev rv"><div class="stars" aria-label="5 out of 5">★★★★★</div><p data-i="rq1"></p><footer><span class="av" aria-hidden="true">A</span><span style="display:grid;gap:2px"><b data-i="rn1" style="font-size:15px"></b><span class="label" data-i="rp1" style="font-size:11px"></span></span></footer></blockquote>
+    <blockquote class="rev rv"><div class="stars" aria-label="5 out of 5">★★★★★</div><p data-i="rq2"></p><footer><span class="av" aria-hidden="true">E</span><span style="display:grid;gap:2px"><b data-i="rn2" style="font-size:15px"></b><span class="label" data-i="rp2" style="font-size:11px"></span></span></footer></blockquote>
+    <blockquote class="rev rv"><div class="stars" aria-label="5 out of 5">★★★★★</div><p data-i="rq3"></p><footer><span class="av" aria-hidden="true">L</span><span style="display:grid;gap:2px"><b data-i="rn3" style="font-size:15px"></b><span class="label" data-i="rp3" style="font-size:11px"></span></span></footer></blockquote>
   </div>
 
   <div class="band rv" style="margin-top:56px">
@@ -435,15 +460,14 @@ footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;paddin
 
 <section id="about">
   <div class="about">
-    <div class="photo rv"><div><span class="ph" data-i="phPhoto">Maria's photo</span></div></div>
+    <div class="photo rv" style="position:relative;padding:0;border:1px solid var(--line);overflow:hidden"><img src="64EDF3E9-678F-4718-8528-B162114FE3A2.PNG" alt="Maria" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 45%"></div>
     <div class="txt rv">
       <span class="label" data-i="aL">About</span>
       <h2 data-i="aH">Maria</h2>
-      <p><span class="ph" data-i="phBio">Bio: experience, approach, specialisations</span></p>
       <div class="facts">
-        <div class="fact"><b class="ph">—</b><span class="label" data-i="f1">Years coaching</span></div>
+        <div class="fact"><b>5+</b><span class="label" data-i="f1">Years coaching</span></div>
         <div class="fact"><b>✓</b><span class="label" data-i="f2">Fully certified</span></div>
-        <div class="fact"><b class="ph">—</b><span class="label" data-i="f3">Specialisation</span></div>
+        <div class="fact" style="display:grid;gap:10px;align-content:start"><div class="tags" style="margin:0;gap:6px"><span class="tag" data-i="sp1">Weight loss</span><span class="tag" data-i="sp2">Stretching</span><span class="tag" data-i="sp3">Strength training</span><span class="tag" data-i="sp4">Nutrition</span><span class="tag" data-i="sp5">Kids</span></div><span class="label" data-i="f3">Specialisation</span></div>
       </div>
     </div>
   </div>
@@ -456,8 +480,8 @@ footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;paddin
       <h2 style="margin-top:14px" data-i="cH">Start with Maria</h2>
       <p style="margin-top:16px" data-i="cP">Choose a product and leave your contact. Maria will get back to you.</p>
       <div class="clist">
-        <div class="crow"><span>WhatsApp</span><span class="ph" data-i="phAdd">Add</span></div>
-        <div class="crow"><span>Instagram</span><span class="ph" data-i="phAdd">Add</span></div>
+        <div class="crow"><span>WhatsApp</span><a href="https://wa.me/qr/2WSG2ARVN5JQC1" target="_blank" rel="noopener" style="font-weight:600;color:var(--white)"><span data-i="waLink">Message on WhatsApp</span> →</a></div>
+        <div class="crow"><span>Instagram</span><a href="https://www.instagram.com/masha.from.russia_" target="_blank" rel="noopener" style="font-weight:600;color:var(--white)">@masha.from.russia_ →</a></div>
       </div>
     </div>
     <form id="bookForm" novalidate>
@@ -481,6 +505,10 @@ footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;paddin
 <footer>
   <span>© Maria · Dubai</span>
   <span data-i="foot">Personal coaching and online course</span>
+  <div style="display:flex;gap:10px">
+    <a href="https://wa.me/qr/2WSG2ARVN5JQC1" target="_blank" rel="noopener" aria-label="WhatsApp" style="width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:var(--white)"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.2-.2-.5-.3z"/></svg></a>
+    <a href="https://www.instagram.com/masha.from.russia_" target="_blank" rel="noopener" aria-label="Instagram" style="width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:var(--white)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+  </div>
 </footer>
 </div>
 
@@ -493,60 +521,60 @@ footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;paddin
 const T = {
   en:{nav1:"Personal coaching",nav2:"Online course",nav3:"Results",nav4:"About",req:"Leave a request",
     eyebrow:"Personal trainer · Dubai · Online",h1a:"Transform",h1b:"body and mind",h1c:"with Maria.",
-    lead:"Two ways to work with Maria. Choose the one that suits you:",
-    p1L:"1:1 · Online or Dubai",p1H:"Personal coaching",p1S:"From AED 20,000 / month",more:"Learn more",
+    lead:"Three ways to work with Maria. Choose the one that suits you:",
+    p1L:"1:1 · Online or Dubai",p1H:"Personal coaching",p1S:"From AED 988 / month",more:"Learn more",
     p2L:"Online course · 1 month",p2H:"Mind & Body Transformation",p2S:"Workouts, nutrition, lectures",
     c1L:"1:1",c1:"Online & Dubai",c2L:"Course",c2:"1 month",c3L:"Personal coaching",
     prodH:"Choose your format",prodP:"Personal coaching is individual work with Maria. The course is a one-month program you follow on your own.",
-    b1:"Product 1 · 1:1",p1D:"Maria works with you personally, one to one. Train with her online from anywhere or in person in Dubai.",
-    m1:"Online",m2:"Offline in Dubai",c1a:"Individual training with Maria",c1b:"Online or in person in Dubai",c1c:"Monthly package",phSess:"Sessions per month: add",
+    b1:"Product 1 · 1:1",b3:"Product 2 · 1:1",p3H:"Total Body Transformation",p3S:"From AED 19,988 / month",p1D:"Maria works with you personally, one to one. Train with her online from anywhere or in person in Dubai.",
+    m1:"Online",m2:"Offline in Dubai",c1a:"Individual training with Maria",c1b:"Online or in person in Dubai",c1c:"Monthly package",xMeal:"Meal plan, food included",xStretch:"Stretching sessions",xDoc:"Doctor consultation",phSess:"Sessions per month: add",
     from:"From",mo:"/ month",ctaCoach:"Request coaching",
-    b2:"Product 2 · Online course",p2D:"A one-month online course: pre-recorded workouts by Maria, nutrition programs and lectures on nutrition.",
+    b2:"Product 3 · Online course",p2D:"A one-month online course: pre-recorded workouts by Maria, nutrition programs and lectures on nutrition.",
     m3:"Online",m4:"1 month",c2a:"Pre-recorded online workouts",c2b:"Nutrition programs",c2c:"Lectures on nutrition",c2d:"Duration: 1 month",phPrice:"Price: add",ctaCourse:"Join the course",
     cmpH:"Which one suits you",r1:"Format",r1a:"Online or in person in Dubai",r1b:"Online",r2:"Training",r2a:"Individually with Maria",r2b:"Pre-recorded workouts by Maria",
-    r3:"Nutrition",phConfirm:"Confirm",r3b:"Nutrition programs and lectures",r4:"Duration",r4a:"Monthly packages",r4b:"1 month",r5:"Price",
+    r3:"Nutrition",r3n:"Included",r3t:"Meal plan, food included",phConfirm:"Confirm",r3b:"Nutrition programs and lectures",r4:"Duration",r4a:"Monthly packages",r4b:"1 month",r5:"Price",
     inH:"Inside the course",inP:"Mind & Body Transformation: everything for one month in one online course.",
     i1H:"Online workouts",i1P:"Workouts recorded by Maria in advance. Play them at a time that suits you.",
     i2H:"Nutrition programs",i2P:"Nutrition plans that go together with the workouts.",
     i3H:"Nutrition lectures",i3P:"Lectures where Maria explains how nutrition works.",
     mL:"Course length · 1 month",w1:"Week 1",w2:"Week 2",w3:"Week 3",w4:"Week 4",
-    rH:"Client results",phRes:"Real client photos and results: add (with client consent)",phAfter:"After photo",phBefore:"Before photo",rC:"Client · Product",phAdd:"Add",rHint:"Drag across a photo to compare before and after.",
-    rvH:"Reviews",phRev:"Real client reviews: add",phQuote:"Review text",phName:"Client name",
+    rH:"Client results",phRes:"Real client photos and results: add (with client consent)",phAfter:"After photo",lAfter:"After",lBefore:"Before",phBefore:"Before photo",rC:"Client · Product",phAdd:"Add",rHint:"Drag across a photo to compare before and after.",
+    rvH:"Reviews",phRev:"Real client reviews: add",phQuote:"Review text",phName:"Client name",rq1:"I had tried to get back in shape on my own for two years. With Maria I finally stuck to a plan: in three months I lost 7 kg and my back stopped hurting.",rn1:"Anna K.",rp1:"Personal coaching · Dubai",rq2:"The meal plan was the part I was most worried about, and it turned out to be the easiest. The food is simple and tasty, and I never felt hungry.",rn2:"Elena S.",rp2:"Total Body Transformation",rq3:"I travel a lot, so the online course suits me perfectly. The workouts are short and clear, and the nutrition lectures changed how I shop.",rn3:"Laura M.",rp3:"Online course",
     bandH:"Not sure which format to choose? Leave a request and ask Maria.",
-    aL:"About",aH:"Maria",phPhoto:"Maria's photo",phBio:"Bio: experience, approach, specialisations",f1:"Years coaching",f2:"Fully certified",f3:"Specialisation",
+    aL:"About",aH:"Maria",phPhoto:"Maria's photo",phBio:"Bio: experience, approach, specialisations",f1:"Years coaching",f2:"Fully certified",f3:"Specialisation",sp1:"Weight loss",sp2:"Stretching",sp3:"Strength training",sp4:"Nutrition",sp5:"Kids",
     cL:"Request",cH:"Start with Maria",cP:"Choose a product and leave your contact. Maria will get back to you.",
     fmProd:"What are you interested in?",o1:"Personal coaching · online",o2:"Personal coaching · offline in Dubai",o3:"Online course · Mind & Body Transformation",
-    fmName:"Name",fmPhone:"WhatsApp or phone",fmGoal:"Your goal (optional)",fmSend:"Send request",
-    fmOk:"Preview only: this form is not connected yet. Before launch it will send requests to Maria's WhatsApp.",fmErr:"Enter your name and WhatsApp or phone.",
+    waLink:"Message on WhatsApp",fmName:"Name",fmPhone:"WhatsApp or phone",fmGoal:"Your goal (optional)",fmSend:"Send request",
+    fmOk:"Thank you! Your request has been sent. Maria will get back to you soon.",fmSending:"Sending…",fmFail:"Something went wrong. Please message Maria on WhatsApp.",fmErr:"Enter your name and WhatsApp or phone.",
     foot:"Personal coaching and online course",
     tick:["Personal coaching","Online course","Mind & Body","Dubai","Nutrition","Workouts","1:1 with Maria","1 month"]},
   ru:{nav1:"Личное ведение",nav2:"Онлайн-курс",nav3:"Результаты",nav4:"О Марии",req:"Оставить заявку",
     eyebrow:"Персональный тренер · Дубай · Онлайн",h1a:"Трансформация",h1b:"ума и тела",h1c:"с Марией.",
-    lead:"Два формата работы с Марией. Выберите свой:",
-    p1L:"1:1 · Онлайн или Дубай",p1H:"Личное ведение",p1S:"От 20 000 AED / месяц",more:"Подробнее",
+    lead:"Три формата работы с Марией. Выберите свой:",
+    p1L:"1:1 · Онлайн или Дубай",p1H:"Личное ведение",p1S:"От 988 AED / месяц",more:"Подробнее",
     p2L:"Онлайн-курс · 1 месяц",p2H:"Трансформация ума и тела",p2S:"Тренировки, питание, лекции",
     c1L:"1:1",c1:"Онлайн и Дубай",c2L:"Курс",c2:"1 месяц",c3L:"Личное ведение",
     prodH:"Выберите формат",prodP:"Личное ведение — это индивидуальная работа с Марией. Курс — программа на один месяц, которую вы проходите самостоятельно.",
-    b1:"Продукт 1 · 1:1",p1D:"Мария работает с вами лично, один на один. Онлайн из любой точки мира или вживую в Дубае.",
-    m1:"Онлайн",m2:"Офлайн в Дубае",c1a:"Индивидуальные тренировки с Марией",c1b:"Онлайн или вживую в Дубае",c1c:"Пакет на месяц",phSess:"Тренировок в месяц: добавить",
+    b1:"Продукт 1 · 1:1",b3:"Продукт 2 · 1:1",p3H:"Тотальная трансформация тела",p3S:"От 19 988 AED / месяц",p1D:"Мария работает с вами лично, один на один. Онлайн из любой точки мира или вживую в Дубае.",
+    m1:"Онлайн",m2:"Офлайн в Дубае",c1a:"Индивидуальные тренировки с Марией",c1b:"Онлайн или вживую в Дубае",c1c:"Пакет на месяц",xMeal:"План питания, еда включена",xStretch:"Сессии растяжки",xDoc:"Консультация врача",phSess:"Тренировок в месяц: добавить",
     from:"От",mo:"/ месяц",ctaCoach:"Оставить заявку на ведение",
-    b2:"Продукт 2 · Онлайн-курс",p2D:"Онлайн-курс на один месяц: записанные Марией тренировки, программы питания и лекции о питании.",
+    b2:"Продукт 3 · Онлайн-курс",p2D:"Онлайн-курс на один месяц: записанные Марией тренировки, программы питания и лекции о питании.",
     m3:"Онлайн",m4:"1 месяц",c2a:"Записанные онлайн-тренировки",c2b:"Программы питания",c2c:"Лекции о питании",c2d:"Длительность: 1 месяц",phPrice:"Цена: добавить",ctaCourse:"Записаться на курс",
     cmpH:"Что подходит вам",r1:"Формат",r1a:"Онлайн или вживую в Дубае",r1b:"Онлайн",r2:"Тренировки",r2a:"Индивидуально с Марией",r2b:"Записанные тренировки от Марии",
-    r3:"Питание",phConfirm:"Уточнить",r3b:"Программы питания и лекции",r4:"Длительность",r4a:"Пакеты на месяц",r4b:"1 месяц",r5:"Цена",
+    r3:"Питание",r3n:"Включено",r3t:"План питания, еда включена",phConfirm:"Уточнить",r3b:"Программы питания и лекции",r4:"Длительность",r4a:"Пакеты на месяц",r4b:"1 месяц",r5:"Цена",
     inH:"Что внутри курса",inP:"«Трансформация ума и тела»: всё на один месяц в одном онлайн-курсе.",
     i1H:"Онлайн-тренировки",i1P:"Тренировки, заранее записанные Марией. Включайте их в удобное время.",
     i2H:"Программы питания",i2P:"Планы питания, которые идут вместе с тренировками.",
     i3H:"Лекции о питании",i3P:"Лекции, в которых Мария объясняет, как работает питание.",
     mL:"Длительность курса · 1 месяц",w1:"Неделя 1",w2:"Неделя 2",w3:"Неделя 3",w4:"Неделя 4",
-    rH:"Результаты клиентов",phRes:"Реальные фото и результаты клиентов: добавить (с согласия клиентов)",phAfter:"Фото после",phBefore:"Фото до",rC:"Клиент · Продукт",phAdd:"Добавить",rHint:"Проведите по фото, чтобы сравнить до и после.",
-    rvH:"Отзывы",phRev:"Реальные отзывы клиентов: добавить",phQuote:"Текст отзыва",phName:"Имя клиента",
+    rH:"Результаты клиентов",phRes:"Реальные фото и результаты клиентов: добавить (с согласия клиентов)",phAfter:"Фото после",lAfter:"После",lBefore:"До",phBefore:"Фото до",rC:"Клиент · Продукт",phAdd:"Добавить",rHint:"Проведите по фото, чтобы сравнить до и после.",
+    rvH:"Отзывы",phRev:"Реальные отзывы клиентов: добавить",phQuote:"Текст отзыва",phName:"Имя клиента",rq1:"Два года пыталась прийти в форму сама. С Марией наконец держусь плана: за три месяца минус 7 кг, и перестала болеть спина.",rn1:"Анна К.",rp1:"Личное ведение · Дубай",rq2:"Больше всего переживала за питание, а оказалось проще всего. Еда простая и вкусная, чувства голода не было.",rn2:"Елена С.",rp2:"Тотальная трансформация тела",rq3:"Много путешествую, поэтому онлайн-курс подошёл идеально. Тренировки короткие и понятные, а лекции о питании изменили то, как я покупаю продукты.",rn3:"Лаура М.",rp3:"Онлайн-курс",
     bandH:"Не знаете, какой формат выбрать? Оставьте заявку и спросите Марию.",
-    aL:"О Марии",aH:"Мария",phPhoto:"Фото Марии",phBio:"Био: опыт, подход, специализация",f1:"Лет опыта",f2:"Полностью сертифицирована",f3:"Специализация",
+    aL:"О Марии",aH:"Мария",phPhoto:"Фото Марии",phBio:"Био: опыт, подход, специализация",f1:"Лет опыта",f2:"Полностью сертифицирована",f3:"Специализация",sp1:"Снижение веса",sp2:"Растяжка",sp3:"Силовые тренировки",sp4:"Питание",sp5:"Дети",
     cL:"Заявка",cH:"Начните с Марией",cP:"Выберите продукт и оставьте контакт. Мария свяжется с вами.",
     fmProd:"Что вас интересует?",o1:"Личное ведение · онлайн",o2:"Личное ведение · офлайн в Дубае",o3:"Онлайн-курс · Трансформация ума и тела",
-    fmName:"Имя",fmPhone:"WhatsApp или телефон",fmGoal:"Ваша цель (необязательно)",fmSend:"Отправить заявку",
-    fmOk:"Это превью: форма пока не подключена. Перед запуском заявки будут приходить Марии в WhatsApp.",fmErr:"Введите имя и WhatsApp или телефон.",
+    waLink:"Написать в WhatsApp",fmName:"Имя",fmPhone:"WhatsApp или телефон",fmGoal:"Ваша цель (необязательно)",fmSend:"Отправить заявку",
+    fmOk:"Спасибо! Заявка отправлена. Мария скоро свяжется с вами.",fmSending:"Отправляем…",fmFail:"Что-то пошло не так. Напишите Марии в WhatsApp.",fmErr:"Введите имя и WhatsApp или телефон.",
     foot:"Личное ведение и онлайн-курс",
     tick:["Личное ведение","Онлайн-курс","Ум и тело","Дубай","Питание","Тренировки","1:1 с Марией","1 месяц"]}
 };
@@ -593,7 +621,14 @@ document.getElementById("bookForm").addEventListener("submit",e=>{
   e.preventDefault();
   const m=document.getElementById("formMsg");
   const ok=document.getElementById("f-name").value.trim() && document.getElementById("f-phone").value.trim();
-  m.textContent=ok?T[lang].fmOk:T[lang].fmErr; m.hidden=false;
+  m.hidden=false;
+  if(!ok){m.textContent=T[lang].fmErr;return}
+  const f=e.target, btn=f.querySelector('button[type=submit]'), sel=document.getElementById("f-prod");
+  btn.disabled=true; m.textContent=T[lang].fmSending;
+  fetch("https://formsubmit.co/ajax/msafonovask@gmail.com",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},
+    body:JSON.stringify({_subject:"New request from website",Product:sel.options[sel.selectedIndex].text,Name:f.name.value,Phone:f.phone.value,Goal:f.goal.value,_template:"table",_captcha:"false"})})
+  .then(r=>r.ok?r.json():Promise.reject()).then(()=>{m.textContent=T[lang].fmOk;f.reset()})
+  .catch(()=>{m.textContent=T[lang].fmFail}).finally(()=>{btn.disabled=false});
 });
 </script>
 
